@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "POE Translate",
+  "name": "스타빈 POE 번역기 1.0",
   "description": "POE Translate",
   "version": "1.0.0",
   "icons": {
@@ -10,7 +10,8 @@
     "128": "images/icon-128.png"
   },
   "permissions": [
-    "storage"
+    "storage",
+    "tabs"
   ],
   "action": {
     "default_popup": "popup.html",
@@ -19,16 +20,15 @@
   "content_scripts": [
     {
       "js": [
-        "data/items.js",
-        "scripts/jquery-3.7.1.js",
+        "scripts/jquery-3.7.1.min.js",
         "scripts/content.js"
       ],
       "css": [
         "css/content.css"
       ],
       "matches": [
-        "https://*/*",
-        "http://*/*"
+        "http://*/*",
+        "https://*/*"
       ]
     }
   ]

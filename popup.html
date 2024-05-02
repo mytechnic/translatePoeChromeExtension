@@ -4,32 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Popup</title>
-    <link rel="stylesheet" href="css/popup.css">
+    <link rel="stylesheet" href="css/popup.css?1">
     <script src="scripts/jquery-3.7.1.js"></script>
     <script src="scripts/popup.js"></script>
 </head>
 <body>
 <div class="body">
     <div class="head">
-        <span class="title">POE Translate</span>
+        스타빈 POE 번역기 v1.0
     </div>
-    <div class="controls">
-        <div name="language_name" class="language">한국어</div>
-        <div class="language">
-            <span name="language" data-lang="kr"><img src="https://web.poecdn.com/protected/image/lang/KR.png?key=uiWvnUNzhAtSsclUVPPwEA" alt="한국어"></span>
-            <span name="language" data-lang="br"><img src="https://web.poecdn.com/protected/image/lang/BR.png?key=NANHpQ35wvG8x0u8EYk9hw" alt="Português Brasileiro"></span>
-            <span name="language" data-lang="ru"><img src="https://web.poecdn.com/protected/image/lang/RU.png?key=QckvzIS4K--96T2zTtbrBQ" alt="Русский"></span>
-            <span name="language" data-lang="th"><img src="https://web.poecdn.com/protected/image/lang/TH.png?key=7G3O_6azBAtd5zQDRKtzDw" alt="ไทย"></span>
-            <span name="language" data-lang="de"><img src="https://web.poecdn.com/protected/image/lang/DE.png?key=FiiN6ZFguWXv1uayQjieGg" alt="Deutsch"></span>
-            <span name="language" data-lang="fr"><img src="https://web.poecdn.com/protected/image/lang/FR.png?key=2tHWKUtBPF7H88m8HQ52Rw" alt="Français"></span>
-            <span name="language" data-lang="es"><img src="https://web.poecdn.com/protected/image/lang/ES.png?key=Q8Nw3xDO45npTzoyvLIsFA" alt="Español"></span>
-            <span name="language" data-lang="jp"><img src="https://web.poecdn.com/protected/image/lang/JP.png?key=uvXiESmsaodD8vqJy0U0CA" alt="日本語"></span>
-        </div>
+    <div class="controls addPage">
+        <button name="addPage">[+] 현재 웹페이지 번역</button>
     </div>
-    <div class="action">
-        자동 번역 <input type="checkbox" name="auto">
+    <div class="controls addPath">
+        <button name="addPath">[+] 현재 경로의 모든 웹페이지 번역</button>
     </div>
-
+    <div class="controls delPage">
+        <button name="delPage">[-] 웹페이지 번역 안함</button>
+    </div>
+    <div class="controls delPath">
+        <button name="delPath">[-] 웹페이지 번역 안함</button>
+    </div>
+    <div class="controls delAll">
+        <button name="delAll">[-] 완전 초기화</button>
+    </div>
+    <div class="foot">패스 오브 액자일 IGN: @스타빈</div>
 </div>
 </body>
 </html>
