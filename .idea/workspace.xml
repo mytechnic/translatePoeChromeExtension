@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="91d6ca4b-9f33-4d5a-920c-af450833c748" name="Changes" comment="코드 개선">
+      <change afterPath="$PROJECT_DIR$/build/StarPoeTranslate-v1.3/css/content.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/StarPoeTranslate-v1.3/css/popup.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/StarPoeTranslate-v1.3/images/icon-128.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/StarPoeTranslate-v1.3/images/icon-16.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/StarPoeTranslate-v1.3/images/icon-32.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/StarPoeTranslate-v1.3/images/icon-48.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/StarPoeTranslate-v1.3/images/popup.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/StarPoeTranslate-v1.3/manifest.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/StarPoeTranslate-v1.3/popup.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/StarPoeTranslate-v1.3/scripts/content.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/StarPoeTranslate-v1.3/scripts/jquery-3.7.1.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/StarPoeTranslate-v1.3/scripts/popup.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="MIXED" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2fdB76swnEe2uIcupejJP6yyRID" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/STARBUN/Desktop/Game/StarPoeTranslate/build/StarPoeTranslate-v1.3",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.general",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\STARBUN\Desktop\Game\StarPoeTranslate\build\StarPoeTranslate-v1.3" />
+      <recent name="C:\Users\STARBUN\Desktop\Game\StarPoeTranslate\build" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\STARBUN\Desktop\Game\StarPoeTranslate\build\StarPoeTranslate-v1.3" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-19.0.2-corretto-19.0.2-f644763e9732-1e16d6ec" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="91d6ca4b-9f33-4d5a-920c-af450833c748" name="Changes" comment="" />
+      <created>1714120903617</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1714120903617</updated>
+      <workItem from="1714120904684" duration="5697000" />
+      <workItem from="1714126670984" duration="40000" />
+      <workItem from="1714126834258" duration="8000" />
+      <workItem from="1714166229593" duration="268000" />
+      <workItem from="1714410873357" duration="44000" />
+      <workItem from="1714476575351" duration="120000" />
+      <workItem from="1714528076957" duration="689000" />
+      <workItem from="1714552163606" duration="24722000" />
+      <workItem from="1714582058574" duration="141000" />
+      <workItem from="1714582205087" duration="10000" />
+      <workItem from="1714655033812" duration="14092000" />
+      <workItem from="1714669288498" duration="52000" />
+      <workItem from="1714669350190" duration="585000" />
+      <workItem from="1714670347870" duration="426000" />
+      <workItem from="1714745964324" duration="2509000" />
+      <workItem from="1714752346029" duration="9000" />
+      <workItem from="1714753365169" duration="5907000" />
+    </task>
+    <task id="LOCAL-00001" summary="최초 동작 버전">
+      <option name="closed" value="true" />
+      <created>1714125546813</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1714125546813</updated>
+    </task>
+    <task id="LOCAL-00002" summary="기본 동작">
+      <option name="closed" value="true" />
+      <created>1714410911394</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1714410911394</updated>
+    </task>
+    <task id="LOCAL-00003" summary="코드 개선">
+      <option name="closed" value="true" />
+      <created>1714577042907</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1714577042907</updated>
+    </task>
+    <task id="LOCAL-00004" summary="POE 번역기">
+      <option name="closed" value="true" />
+      <created>1714579508865</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1714579508865</updated>
+    </task>
+    <task id="LOCAL-00005" summary="POE 번역기">
+      <option name="closed" value="true" />
+      <created>1714582179356</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1714582179356</updated>
+    </task>
+    <task id="LOCAL-00006" summary="POE 번역기">
+      <option name="closed" value="true" />
+      <created>1714582195058</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1714582195058</updated>
+    </task>
+    <task id="LOCAL-00007" summary="POE 스타 한글 번역 1.0">
+      <option name="closed" value="true" />
+      <created>1714669689252</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1714669689252</updated>
+    </task>
+    <task id="LOCAL-00008" summary="POE 스타 한글 번역 1.0">
+      <option name="closed" value="true" />
+      <created>1714669745642</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1714669745642</updated>
+    </task>
+    <task id="LOCAL-00009" summary="메타정보 수정">
+      <option name="closed" value="true" />
+      <created>1714670518854</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1714670518854</updated>
+    </task>
+    <task id="LOCAL-00010" summary="사전 버전 정보 표시">
+      <option name="closed" value="true" />
+      <created>1714751260867</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1714751260867</updated>
+    </task>
+    <task id="LOCAL-00011" summary="코드 개선">
+      <option name="closed" value="true" />
+      <created>1714759045983</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1714759045983</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="475fb59a-b0ef-4255-a717-7c320d34a26d" value="TOOL_WINDOW" />
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="475fb59a-b0ef-4255-a717-7c320d34a26d">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="roots">
+                    <value>
+                      <list>
+                        <option value="$PROJECT_DIR$" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+            </State>
+          </value>
+        </entry>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="최초 동작 버전" />
+    <MESSAGE value="기본 동작" />
+    <MESSAGE value="POE 번역기" />
+    <MESSAGE value="POE 스타 한글 번역 1.0" />
+    <MESSAGE value="메타정보 수정" />
+    <MESSAGE value="사전 버전 정보 표시" />
+    <MESSAGE value="코드 개선" />
+    <option name="LAST_COMMIT_MESSAGE" value="코드 개선" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
