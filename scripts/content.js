@@ -174,10 +174,6 @@ function translate(node) {
 
 function translateTask(sDebug) {
 
-    console.log('allInitialized', allInitialized);
-    console.log('isInProgressTranslating', isInProgressTranslating);
-    console.log('autoTranslate', autoTranslate);
-
     if (!allInitialized) {
         return;
     }
@@ -191,7 +187,6 @@ function translateTask(sDebug) {
     }
 
     isInProgressTranslating = true;
-    console.log('translateTask')
     translate(document.body);
     isInProgressTranslating = false;
 }

@@ -48,6 +48,7 @@ function setPath(path, translate) {
 function delAll() {
     storage = {};
     chrome.storage.sync.set(storage);
+    chrome.storage.sync.clear();
 }
 
 async function initialize() {
@@ -124,7 +125,7 @@ $(async function () {
         $('.delAll').show();
     }
 
-    $('[name=addPage]').on('click', function () {
+    $('button[name=addPage]').on('click', function () {
         setTranslate(true);
         $('.addPage').hide();
         $('.addPath').hide();
@@ -134,7 +135,7 @@ $(async function () {
         setPage(page, true);
     });
 
-    $('[name=addPath]').on('click', function () {
+    $('button[name=addPath]').on('click', function () {
         setTranslate(true);
         $('.addPage').hide();
         $('.addPath').hide();
@@ -144,7 +145,7 @@ $(async function () {
         setPath(path, true);
     });
 
-    $('[name=delPage]').on('click', function () {
+    $('button[name=delPage]').on('click', function () {
         setTranslate(false);
         $('.addPage').show();
         $('.addPath').show();
@@ -154,7 +155,7 @@ $(async function () {
         setPage(page, false);
     });
 
-    $('[name=delPath]').on('click', function () {
+    $('button[name=delPath]').on('click', function () {
         setTranslate(false);
         $('.addPage').show();
         $('.addPath').show();
@@ -164,7 +165,7 @@ $(async function () {
         setPath(path, false);
     });
 
-    $('[name=delAll]').on('click', function () {
+    $('button[name=delAll]').on('click', function () {
         setTranslate(false);
         $('.addPage').show();
         $('.addPath').show();
