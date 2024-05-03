@@ -14,7 +14,14 @@ body, div, span, img {
     font-size: 12pt;
     font-weight: bold;
     color: #f3a235;
-    padding: 20px 1px 20px 10px;
+    padding: 20px 1px 5px 10px;
+}
+
+.version {
+    font-size: 9pt;
+    color: #ffffff;
+    padding: 1px 20px 15px 10px;
+    text-align: right;
 }
 
 .controls {

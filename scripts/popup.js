@@ -50,7 +50,6 @@ function delAll() {
     chrome.storage.sync.set(storage);
 }
 
-
 async function initialize() {
     try {
         const tabQueryPromise = new Promise((resolve, reject) => {
@@ -80,6 +79,18 @@ $(async function () {
     await initialize();
     const page = getPageUrl(url);
     const path = getPathUrl(url);
+
+    chrome.storage.local.get().then((data) => {
+        $('#version').text(data['version']);
+    });
+
+    chrome.storage.onChanged.addListener((changes, namespace) => {
+        for (let [key, {oldValue, newValue}] of Object.entries(changes)) {
+            if (namespace === 'local' && key === 'version') {
+                $('#version').text(newValue);
+            }
+        }
+    });
 
     if (!storage['page']) {
         storage['page'] = {};

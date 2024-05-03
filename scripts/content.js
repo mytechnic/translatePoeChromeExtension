@@ -47,7 +47,6 @@ async function syncStorage() {
         for (let [key, {oldValue, newValue}] of Object.entries(changes)) {
             if (namespace === 'local' && key === 'auto') {
                 autoTranslate = newValue === '1';
-                console.log('autoTranslate', autoTranslate);
             }
         }
     });
