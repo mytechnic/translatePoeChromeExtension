@@ -78,15 +78,40 @@ function toLowerCase(text) {
     return text.toLowerCase();
 }
 
+function getCacheKey(text) {
+    if (text == null) {
+        return text;
+    }
+    return text.toLowerCase().replaceAll(' ', '');
+}
+
+function getExHashKey(hashKey) {
+    let z = hashKey.split(' - ');
+    if (z.length > 1) {
+        return z[0].trim();
+    } else {
+        return null;
+    }
+}
+
 function translateText(source) {
     let word = source.trim();
     let hashKey = toLowerCase(word);
+    let exHashKey = getExHashKey(hashKey);
     let findText = '';
 
     if (dictionary['h'][hashKey]) {
         findText = source.replaceAll(word, dictionary['h'][hashKey]);
     } else if (dictionary['p'][hashKey]) {
         findText = source.replaceAll(word, dictionary['p'][hashKey]);
+    }
+
+    if (!findText && exHashKey) {
+        if (dictionary['h'][exHashKey]) {
+            findText = source.replace(new RegExp(exHashKey, 'i'), dictionary['h'][exHashKey]);
+        } else if (dictionary['p'][exHashKey]) {
+            findText = source.replace(new RegExp(exHashKey, 'i'), dictionary['p'][exHashKey]);
+        }
     }
 
     if (!findText) {
@@ -124,19 +149,21 @@ function translate(node) {
             return;
         }
 
-        if (documentTextCache[node.nodeValue] === 1) {
+        let cacheKey = getCacheKey(node.nodeValue);
+
+        if (documentTextCache[cacheKey] === -1) {
             return;
-        } else if (documentTextCache[node.nodeValue]) {
-            node.nodeValue = documentTextCache[node.nodeValue];
+        } else if (documentTextCache[cacheKey]) {
+            node.nodeValue = documentTextCache[cacheKey];
             return;
         }
 
         let text = translateText(node.nodeValue);
         if (text) {
-            documentTextCache[node.nodeValue] = text;
+            documentTextCache[cacheKey] = text;
             node.nodeValue = text;
         } else {
-            documentTextCache[node.nodeValue] = 1;
+            documentTextCache[cacheKey] = -1;
         }
     }
 
