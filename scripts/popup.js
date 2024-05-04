@@ -1,117 +1,84 @@
-let url = '';
-let storage = {};
-
-function getPageUrl(url) {
-    let cleanUrl = url.split('?')[0];
-
-    if (cleanUrl.endsWith('/')) {
-        cleanUrl = cleanUrl.slice(0, -1);
-    }
-
-    return cleanUrl;
-}
-
-function getPathUrl(url) {
-    const urlObject = new URL(url);
-
-    const pathParts = urlObject.pathname.split('/').filter(part => part !== '');
-    const parentPath = pathParts.slice(0, -1).join('/') + '/';
-
-    if (url.endsWith('/')) {
-        return url;
-    }
-
-    return parentPath;
-}
-
+let isPageTranslate = false;
+let isPathTranslate = false;
+let path = '';
+let page = '';
+let cacheVersion = -1;
+let bookmark = {};
 
 function setTranslate(translate) {
-    chrome.storage.local.set({'auto': (translate ? '1' : '0')});
+    setLocalStorage({'auto': (translate ? '1' : '0')});
 }
 
-function setPage(page, translate) {
-    if (!storage['page']) {
-        storage['page'] = {};
+function setPage(translate) {
+    if (!bookmark['page']) {
+        bookmark['page'] = {};
     }
-    storage['page'][page] = translate;
-    chrome.storage.sync.set(storage);
+
+    bookmark['page'][page] = translate;
+    setSyncStorage(bookmark);
 }
 
-function setPath(path, translate) {
-    if (!storage['path']) {
-        storage['path'] = {};
+function setPath(translate) {
+    if (!bookmark['path']) {
+        bookmark['path'] = {};
     }
-    storage['path'][path] = translate;
-    chrome.storage.sync.set(storage);
+    bookmark['path'][path] = translate;
+    setSyncStorage(bookmark);
 }
 
 function delAll() {
-    storage = {};
-    chrome.storage.sync.set(storage);
-    chrome.storage.sync.clear();
+    clearSyncStorage();
 }
 
-async function initialize() {
-    try {
-        const tabQueryPromise = new Promise((resolve, reject) => {
-            chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
-                if (tabs && tabs[0]) {
-                    resolve(tabs[0].url);
-                }
-            });
-        });
-
-        const storageGetPromise = new Promise((resolve, reject) => {
-            chrome.storage.sync.get().then((data) => {
-                resolve(data);
-            });
-        });
-
-        const results = await Promise.all([tabQueryPromise, storageGetPromise]);
-
-        url = results[0];
-        storage = results[1];
-    } catch (error) {
-        console.error('초기화 오류 발생: ', error)
-    }
-}
-
-$(async function () {
-    await initialize();
-    const page = getPageUrl(url);
-    const path = getPathUrl(url);
-
-    chrome.storage.local.get().then((data) => {
-        $('#version').text(data['version']);
-    });
-
-    chrome.storage.onChanged.addListener((changes, namespace) => {
+function changeEventListener() {
+    onChangeStorage((changes, namespace) => {
         for (let [key, {oldValue, newValue}] of Object.entries(changes)) {
             if (namespace === 'local' && key === 'version') {
                 $('#version').text(newValue);
             }
         }
     });
+}
 
-    if (!storage['page']) {
-        storage['page'] = {};
+async function initialize() {
+    let [tabs, localStorage, syncStorage] = await Promise.all([
+        tabsPromise(),
+        localStoragePromise(),
+        syncStoragePromise()
+    ]);
+
+    let currentUrl = '';
+    if (tabs && tabs[0]) {
+        currentUrl = tabs[0].url;
+    }
+    if (!localStorage || Object.keys(localStorage).length === 0) {
+        localStorage = {'version': -1, 'dictionary': {'h': {}, 'p': {}}, 'documentCache': {}};
+    }
+    if (!syncStorage || Object.keys(syncStorage).length === 0) {
+        syncStorage = {'page': {}, 'path': {}, 'auto': '0'};
     }
 
-    if (!storage['path']) {
-        storage['path'] = {};
-    }
+    bookmark = syncStorage;
+    page = getPageUrl(currentUrl);
+    path = getPathUrl(currentUrl);
+    isPageTranslate = syncStorage['page'][page] || false;
+    isPathTranslate = syncStorage['path'][path] || false;
+    cacheVersion = localStorage['version'];
 
-    const isPage = storage['page'][page];
-    const isPath = storage['path'][path];
-    setTranslate(isPage || isPath);
+    $('#version').text(cacheVersion);
+}
 
-    if (isPage) {
+$(async function () {
+    await changeEventListener();
+    await initialize();
+
+    if (isPageTranslate) {
         $('.addPage').hide();
         $('.addPath').hide();
         $('.delPage').show();
         $('.delPath').hide();
         $('.delAll').show();
-    } else if (isPath) {
+    } else if (isPathTranslate) {
         $('.addPage').hide();
         $('.addPath').hide();
         $('.delPage').hide();
@@ -126,52 +93,52 @@ $(async function () {
     }
 
     $('button[name=addPage]').on('click', function () {
-        setTranslate(true);
         $('.addPage').hide();
         $('.addPath').hide();
         $('.delPage').show();
         $('.delPath').hide();
         $('.delAll').show();
-        setPage(page, true);
+        setTranslate(true);
+        setPage(true);
     });
 
     $('button[name=addPath]').on('click', function () {
-        setTranslate(true);
         $('.addPage').hide();
         $('.addPath').hide();
         $('.delPage').hide();
         $('.delPath').show();
         $('.delAll').show();
-        setPath(path, true);
+        setTranslate(true);
+        setPath(true);
     });
 
     $('button[name=delPage]').on('click', function () {
-        setTranslate(false);
         $('.addPage').show();
         $('.addPath').show();
         $('.delPage').hide();
         $('.delPath').hide();
         $('.delAll').show();
-        setPage(page, false);
+        setTranslate(false);
+        setPage(false);
     });
 
     $('button[name=delPath]').on('click', function () {
-        setTranslate(false);
         $('.addPage').show();
         $('.addPath').show();
         $('.delPage').hide();
         $('.delPath').hide();
         $('.delAll').show();
-        setPath(path, false);
+        setTranslate(false);
+        setPath(false);
     });
 
     $('button[name=delAll]').on('click', function () {
-        setTranslate(false);
         $('.addPage').show();
         $('.addPath').show();
         $('.delPage').hide();
         $('.delPath').hide();
         $('.delAll').show();
+        setTranslate(false);
         delAll();
     });
 });

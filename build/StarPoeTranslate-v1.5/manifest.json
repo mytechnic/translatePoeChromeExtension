@@ -21,6 +21,8 @@
     {
       "js": [
         "scripts/jquery-3.7.1.min.js",
+        "scripts/chrome_api.js",
+        "scripts/common.js",
         "scripts/content.js"
       ],
       "css": [

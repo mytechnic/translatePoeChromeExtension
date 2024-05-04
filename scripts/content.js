@@ -1,75 +1,15 @@
-let version = {};
+let path = '';
+let page = '';
+let cacheVersion = -1;
 let dictionary = {};
+let dictionaryInitialized = false;
 let isInProgressTranslating = false;
+let isChangedDocument = false;
 let autoTranslate = false;
-let documentTextCache = {};
-let allInitialized = false;
-let cacheInitialized = false;
-let syncInitialized = false;
-let url = window.location.href;
-
-function getPageUrl(url) {
-    let cleanUrl = url.split('?')[0];
-
-    if (cleanUrl.endsWith('/')) {
-        cleanUrl = cleanUrl.slice(0, -1);
-    }
-
-    return cleanUrl;
-}
-
-function getPathUrl(url) {
-    const urlObject = new URL(url);
-
-    const pathParts = urlObject.pathname.split('/').filter(part => part !== '');
-    const parentPath = pathParts.slice(0, -1).join('/') + '/';
-
-    if (url.endsWith('/')) {
-        return url;
-    }
-
-    return parentPath;
-}
-
-function cacheStorage() {
-    let c = new Promise(function (resolve, reject) {
-        chrome.storage.local.get().then((data) => {
-            version = data['version'];
-            dictionary = data['dictionary'];
-            cacheInitialized = true;
-            allInitialized = cacheInitialized && syncInitialized;
-        });
-    });
-}
-
-async function syncStorage() {
-    chrome.storage.onChanged.addListener((changes, namespace) => {
-        for (let [key, {oldValue, newValue}] of Object.entries(changes)) {
-            if (namespace === 'local' && key === 'auto') {
-                autoTranslate = newValue === '1';
-            }
-        }
-    });
-
-    let c = new Promise(function (resolve, reject) {
-        chrome.storage.sync.get().then((storage) => {
-            const page = getPageUrl(url);
-            const path = getPathUrl(url);
-
-            if (!storage['page']) {
-                storage['page'] = {};
-            }
-
-            if (!storage['path']) {
-                storage['path'] = {};
-            }
-
-            autoTranslate = !!(storage['page'][page] || storage['path'][path]);
-            syncInitialized = true;
-            allInitialized = cacheInitialized && syncInitialized;
-        });
-    });
-}
+let documentCache = {};
+let documentCacheSize = 0;
+let localStorageInit = {'version': -1, 'dictionary': {'h': {}, 'p': {}}, 'documentCache': {}};
+let syncStorageInit = {'page': {}, 'path': {}, 'auto': '0'};
 
 function toLowerCase(text) {
     if (text == null) {
@@ -143,27 +83,35 @@ function regexTranslate(text, source, target) {
     }
 }
 
+function isNumericAndSpecialCharactersOnly(str) {
+    return /^[0-9\s!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]*$/.test(str);
+}
+
 function translate(node) {
     if (node.nodeType === 3) {
-        if (!node.nodeValue) {
+        if (!node.nodeValue
+            || node.nodeValue.length > 400
+            || node.nodeValue.indexOf('<') > -1
+            || isNumericAndSpecialCharactersOnly(node.nodeValue)) {
             return;
         }
 
         let cacheKey = getCacheKey(node.nodeValue);
+        let cacheValue = getDocumentCache(cacheKey);
 
-        if (documentTextCache[cacheKey] === -1) {
+        if (cacheValue === -1) {
             return;
-        } else if (documentTextCache[cacheKey]) {
-            node.nodeValue = documentTextCache[cacheKey];
+        } else if (cacheValue) {
+            node.nodeValue = cacheValue;
             return;
         }
 
         let text = translateText(node.nodeValue);
         if (text) {
-            documentTextCache[cacheKey] = text;
             node.nodeValue = text;
+            storeDocumentLocalCache(cacheKey, text);
         } else {
-            documentTextCache[cacheKey] = -1;
+            storeDocumentLocalCache(cacheKey);
         }
     }
 
@@ -173,8 +121,7 @@ function translate(node) {
 }
 
 function translateTask(sDebug) {
-
-    if (!allInitialized) {
+    if (!dictionaryInitialized) {
         return;
     }
 
@@ -187,54 +134,103 @@ function translateTask(sDebug) {
     }
 
     isInProgressTranslating = true;
+    isChangedDocument = false;
     translate(document.body);
+    if (isChangedDocument) {
+        setLocalStorage({'documentCache': documentCache});
+    }
+    isChangedDocument = false;
     isInProgressTranslating = false;
 }
 
-async function loadDictionary() {
-    await syncStorage();
-    await cacheStorage();
+function getDocumentCache(cacheKey) {
+    return documentCache[cacheKey] || null;
+}
 
-    let _version;
-    if (dictionary) {
-        $.ajax({
-            async: false,
-            dataType: 'json',
-            url: 'https://mytechnic.github.io/translate/poe_kr_version.json',
-            success: function (result) {
-                _version = result['version'];
-                if (_version > version) {
-                    version = -1;
+function storeDocumentLocalCache(cacheKey, value) {
+    isChangedDocument = true;
+    if (documentCacheSize > 150000) {
+        let keys = Object.keys(documentCache);
+        keys.slice(0, 5000).forEach(function (key) {
+            delete documentCache[key];
+            documentCacheSize--;
+        });
+    } else {
+        documentCacheSize++;
+    }
+    documentCache[cacheKey] = value || -1;
+}
+
+async function changeEventListener() {
+    onChangeStorage(async (changes, namespace) => {
+        for (let [key, {oldValue, newValue}] of Object.entries(changes)) {
+            if (namespace === 'local' && key === 'auto') {
+                autoTranslate = newValue === '1';
+                if (autoTranslate) {
+                    let [version, localStorage,] = await Promise.all([
+                        versionPromise(), localStoragePromise()
+                    ]);
+                    const localVersion = localStorage['version'] || -1;
+
+                    if (version > localVersion) {
+                        dictionary = await dictionaryPromise();
+                        setLocalStorage({
+                            'version': version,
+                            'dictionary': dictionary,
+                            'documentCache': {}
+                        });
+                    }
+
+                    cacheVersion = version;
+                    setLocalStorage({'documentCache': {}});
+                    dictionaryInitialized = true;
                 }
             }
-        });
-
-        if (version > -1) {
-            return;
-        }
-    }
-
-    $.ajax({
-        async: false,
-        dataType: 'json',
-        url: 'https://mytechnic.github.io/translate/poe_kr.json',
-        success: function (result) {
-            dictionary = result;
-            chrome.storage.local.set({'version': _version, 'dictionary': dictionary});
         }
     });
 }
 
-function translateExecutor() {
-    isInProgressTranslating = true;
-    loadDictionary();
-    isInProgressTranslating = false;
+async function initialize() {
+    let url = window.location.href;
+    let [syncStorage, localStorage,] = await Promise.all([
+        syncStoragePromise(), localStoragePromise()
+    ]);
+    if (!syncStorage || Object.keys(syncStorage).length === 0) {
+        syncStorage = syncStorageInit;
+    }
+    if (!localStorage || Object.keys(localStorage).length === 0) {
+        localStorage = localStorageInit;
+    }
 
-    setInterval(function () {
-        translateTask();
-    }, 300);
+    page = getPageUrl(url);
+    path = getPathUrl(url);
+    autoTranslate = !!(syncStorage['page'][page] || syncStorage['path'][path]);
+    dictionary = localStorage['dictionary'] || {'p': {}, 'h': {}};
+    documentCache = localStorage['documentCache'] || {};
+    documentCacheSize = Object.keys(documentCache).length;
+    if (autoTranslate) {
+        dictionaryInitialized = true;
+    }
 }
 
-$(function () {
+let counter = 0;
+
+function translateExecutor() {
+    translateTask();
+
+    let timeout = 300;
+    if (counter === 0) {
+        timeout = 1500;
+    } else if (counter < 3) {
+        timeout = 1000;
+    }
+    setTimeout(translateExecutor, timeout);
+    counter += 1;
+}
+
+$(async function () {
+    await changeEventListener();
+    await initialize();
+
     translateExecutor();
 });
