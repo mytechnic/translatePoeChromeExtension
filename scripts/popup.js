@@ -5,10 +5,6 @@ let page = '';
 let cacheVersion = -1;
 let bookmark = {};
 
-function setTranslate(translate) {
-    setLocalStorage({'auto': (translate ? '1' : '0')});
-}
-
 function setPage(translate) {
     if (!bookmark['page']) {
         bookmark['page'] = {};
@@ -55,7 +51,7 @@ async function initialize() {
         localStorage = {'version': -1, 'dictionary': {'h': {}, 'p': {}}, 'documentCache': {}};
     }
     if (!syncStorage || Object.keys(syncStorage).length === 0) {
-        syncStorage = {'page': {}, 'path': {}, 'auto': '0'};
+        syncStorage = {'page': {}, 'path': {}, 'autoTranslate': false};
     }
 
     bookmark = syncStorage;
@@ -98,7 +94,6 @@ $(async function () {
         $('.delPage').show();
         $('.delPath').hide();
         $('.delAll').show();
-        setTranslate(true);
         setPage(true);
     });
 
@@ -108,7 +103,6 @@ $(async function () {
         $('.delPage').hide();
         $('.delPath').show();
         $('.delAll').show();
-        setTranslate(true);
         setPath(true);
     });
 
@@ -118,7 +112,6 @@ $(async function () {
         $('.delPage').hide();
         $('.delPath').hide();
         $('.delAll').show();
-        setTranslate(false);
         setPage(false);
     });
 
@@ -128,7 +121,6 @@ $(async function () {
         $('.delPage').hide();
         $('.delPath').hide();
         $('.delAll').show();
-        setTranslate(false);
         setPath(false);
     });
 
@@ -138,7 +130,6 @@ $(async function () {
         $('.delPage').hide();
         $('.delPath').hide();
         $('.delAll').show();
-        setTranslate(false);
         delAll();
     });
 });

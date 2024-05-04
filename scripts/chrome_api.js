@@ -26,4 +26,5 @@ function onChangeStorage(func) {
 
 function clearSyncStorage() {
     chrome.storage.sync.clear();
+    chrome.storage.local.clear();
 }

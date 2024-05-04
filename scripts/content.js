@@ -9,7 +9,7 @@ let autoTranslate = false;
 let documentCache = {};
 let documentCacheSize = 0;
 let localStorageInit = {'version': -1, 'dictionary': {'h': {}, 'p': {}}, 'documentCache': {}};
-let syncStorageInit = {'page': {}, 'path': {}, 'auto': '0'};
+let syncStorageInit = {'page': {}, 'path': {}};
 
 function toLowerCase(text) {
     if (text == null) {
@@ -164,8 +164,8 @@ function storeDocumentLocalCache(cacheKey, value) {
 async function changeEventListener() {
     onChangeStorage(async (changes, namespace) => {
         for (let [key, {oldValue, newValue}] of Object.entries(changes)) {
-            if (namespace === 'local' && key === 'auto') {
-                autoTranslate = newValue === '1';
+            if (namespace === 'sync' && (key === 'page' || key === 'path')) {
+                autoTranslate = newValue;
                 if (autoTranslate) {
                     let [version, localStorage,] = await Promise.all([
                         versionPromise(), localStoragePromise()
@@ -180,11 +180,9 @@ async function changeEventListener() {
                             'documentCache': {}
                         });
                     }
-
                     cacheVersion = version;
-                    setLocalStorage({'documentCache': {}});
-                    dictionaryInitialized = true;
                 }
+                dictionaryInitialized = true;
             }
         }
     });
