@@ -4,21 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="91d6ca4b-9f33-4d5a-920c-af450833c748" name="Changes" comment="버그 수정">
+    <list default="true" id="91d6ca4b-9f33-4d5a-920c-af450833c748" name="Changes" comment="배포용 패키지 추가">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/css/popup.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/images/icon-128.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/images/icon-16.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/images/icon-32.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/images/icon-48.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/images/popup.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/manifest.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/popup.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/scripts/chrome_api.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/scripts/common.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/scripts/content.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/scripts/jquery-3.7.1.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/scripts/popup.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.8/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.8/manifest.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,40 +17,57 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RESET_MODE" value="MIXED" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "mytechnic"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="4047c834-afb8-41a1-b46e-5b1cb77a2606" />
+        <option name="url" value="https://github.com/mytechnic/translatePoeChromeExtension.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
   <component name="ProjectId" id="2fdB76swnEe2uIcupejJP6yyRID" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/STARBUN/Desktop/Game/StarPoeTranslate/build/StarPoeTranslate-v1.6&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.general&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/STARBUN/Desktop/Game/StarPoeTranslate/build2/StarPoeTranslate-v1.8/scripts",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.general",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\STARBUN\Desktop\Game\StarPoeTranslate\build2\StarPoeTranslate-v1.8\scripts" />
+      <recent name="C:\Users\STARBUN\Desktop\Game\StarPoeTranslate\build2" />
       <recent name="C:\Users\STARBUN\Desktop\Game\StarPoeTranslate\build\StarPoeTranslate-v1.6" />
       <recent name="C:\Users\STARBUN\Desktop\Game\StarPoeTranslate\build\StarPoeTranslate-v1.5" />
       <recent name="C:\Users\STARBUN\Desktop\Game\StarPoeTranslate\build\StarPoeTranslate-v1.5\scripts" />
-      <recent name="C:\Users\STARBUN\Desktop\Game\StarPoeTranslate\build\StarPoeTranslate-v1.4\scripts" />
-      <recent name="C:\Users\STARBUN\Desktop\Game\StarPoeTranslate\scripts" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\STARBUN\Desktop\Game\StarPoeTranslate\build\StarPoeTranslate-v1.3" />
@@ -107,6 +112,7 @@
       <workItem from="1714915210736" duration="321000" />
       <workItem from="1715182612619" duration="1136000" />
       <workItem from="1715268754163" duration="57000" />
+      <workItem from="1715324527584" duration="2018000" />
     </task>
     <task id="LOCAL-00001" summary="최초 동작 버전">
       <option name="closed" value="true" />
@@ -236,7 +242,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714840251499</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="배포용 패키지 추가">
+      <option name="closed" value="true" />
+      <created>1715324737433</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1715324737433</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -307,7 +321,8 @@
     <MESSAGE value="코드 개선 / 코드 난독화" />
     <MESSAGE value="번역 속도 대폭 개선, 기능명 수정" />
     <MESSAGE value="버그 수정" />
-    <option name="LAST_COMMIT_MESSAGE" value="버그 수정" />
+    <MESSAGE value="배포용 패키지 추가" />
+    <option name="LAST_COMMIT_MESSAGE" value="배포용 패키지 추가" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
