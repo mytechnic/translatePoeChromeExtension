@@ -26,8 +26,20 @@
         "scripts/content.js"
       ],
       "matches": [
-        "http://*/*",
-        "https://*/*"
+        "https://www.pathofexile.com/*",
+        "https://www.poelab.com/*",
+        "https://poe.ninja/*",
+        "https://poemap.trade/*",
+        "https://www.filterblade.xyz/*",
+        "https://www.poewiki.net/*",
+        "https://blight.raelys.com/*",
+        "https://poe.mikelat.com/*",
+        "https://www.poelab.com/*",
+        "https://siveran.github.io/calc.html",
+        "https://www.craftofexile.com/*",
+        "https://poestack.com/*",
+        "https://vilsol.github.io/timeless-jewels/*",
+        "https://wealthyexile.com/*"
       ]
     }
   ]

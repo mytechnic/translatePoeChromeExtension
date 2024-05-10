@@ -6,24 +6,19 @@
   <component name="ChangeListManager">
     <list default="true" id="91d6ca4b-9f33-4d5a-920c-af450833c748" name="Changes" comment="버그 수정">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.5.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.6/css/content.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.6/css/popup.css" beforeDir="false" afterPath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/css/popup.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.6/images/icon-128.png" beforeDir="false" afterPath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/images/icon-128.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.6/images/icon-16.png" beforeDir="false" afterPath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/images/icon-16.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.6/images/icon-32.png" beforeDir="false" afterPath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/images/icon-32.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.6/images/icon-48.png" beforeDir="false" afterPath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/images/icon-48.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.6/images/popup.png" beforeDir="false" afterPath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/images/popup.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.6/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.6/popup.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/popup.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.6/scripts/chrome_api.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/scripts/chrome_api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.6/scripts/common.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/scripts/common.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.6/scripts/content.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/scripts/content.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.6/scripts/jquery-3.7.1.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/scripts/jquery-3.7.1.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.6/scripts/popup.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/scripts/popup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/content.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/popup.html" beforeDir="false" afterPath="$PROJECT_DIR$/popup.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/css/popup.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/images/icon-128.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/images/icon-16.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/images/icon-32.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/images/icon-48.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/images/popup.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/popup.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/scripts/chrome_api.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/scripts/common.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/scripts/content.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/scripts/jquery-3.7.1.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.7/scripts/popup.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,6 +105,8 @@
       <workItem from="1714826273753" duration="3867000" />
       <workItem from="1714838103154" duration="2392000" />
       <workItem from="1714915210736" duration="321000" />
+      <workItem from="1715182612619" duration="1136000" />
+      <workItem from="1715268754163" duration="57000" />
     </task>
     <task id="LOCAL-00001" summary="최초 동작 버전">
       <option name="closed" value="true" />
