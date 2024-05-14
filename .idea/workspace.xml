@@ -4,9 +4,35 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="91d6ca4b-9f33-4d5a-920c-af450833c748" name="Changes" comment="브랜드 정보 추가">
+    <list default="true" id="91d6ca4b-9f33-4d5a-920c-af450833c748" name="Changes" comment="1.8.1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.8/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.8/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.8.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.8/css/popup.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.8/images/icon-128.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.8/images/icon-16.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.8/images/icon-32.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.8/images/icon-48.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.8/images/popup.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.8/manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.8/popup.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.8/scripts/chrome_api.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.8/scripts/common.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.8/scripts/content.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.8/scripts/jquery-3.7.1.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.8/scripts/popup.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.8/css/popup.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.8/images/icon-128.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.8/images/icon-16.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.8/images/icon-32.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.8/images/icon-48.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.8/images/popup.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.8/manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.8/popup.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.8/scripts/chrome_api.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.8/scripts/common.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.8/scripts/content.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.8/scripts/jquery-3.7.1.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.8/scripts/popup.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +140,8 @@
       <workItem from="1715268754163" duration="57000" />
       <workItem from="1715324527584" duration="2050000" />
       <workItem from="1715331731556" duration="9000" />
-      <workItem from="1715609959183" duration="35000" />
+      <workItem from="1715609959183" duration="636000" />
+      <workItem from="1715697085816" duration="1202000" />
     </task>
     <task id="LOCAL-00001" summary="최초 동작 버전">
       <option name="closed" value="true" />
@@ -260,7 +287,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715331718614</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="1.8.1">
+      <option name="closed" value="true" />
+      <created>1715610019459</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1715610019459</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -333,7 +368,8 @@
     <MESSAGE value="버그 수정" />
     <MESSAGE value="배포용 패키지 추가" />
     <MESSAGE value="브랜드 정보 추가" />
-    <option name="LAST_COMMIT_MESSAGE" value="브랜드 정보 추가" />
+    <MESSAGE value="1.8.1" />
+    <option name="LAST_COMMIT_MESSAGE" value="1.8.1" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
