@@ -1,5 +1,4 @@
-// popup.js
-
+// ✅ jquery-free popup.js
 (() => {
     let isPageTranslate = false;
     let isPathTranslate = false;
@@ -7,13 +6,6 @@
     let currentPage = '';
     let cacheVersion = -1;
     let bookmark = {};
-
-    // ✅ 추가된 함수: chrome.storage 변경 감지 리스너
-    function onChangeStorage(callback) {
-        chrome.storage.onChanged.addListener((changes, namespace) => {
-            callback(changes, namespace);
-        });
-    }
 
     function setPage(translate) {
         bookmark.page = bookmark.page || {};
@@ -35,59 +27,66 @@
     }
 
     function updateVersionText(version) {
-        $('#version').text(version);
+        document.getElementById('version').textContent = version;
     }
 
     function applyButtonState() {
-        $('.addPage, .addPath, .delPage, .delPath').hide();
-        if (isPageTranslate) {
-            $('.delPage').show();
-        } else if (isPathTranslate) {
-            $('.delPath').show();
-        } else {
-            $('.addPage, .addPath').show();
+        const show = (selector) => document.querySelector(selector).style.display = '';
+        const hide = (selector) => document.querySelector(selector).style.display = 'none';
+
+        hide('.addPage');
+        hide('.addPath');
+        hide('.delPage');
+        hide('.delPath');
+
+        if (isPageTranslate) show('.delPage');
+        else if (isPathTranslate) show('.delPath');
+        else {
+            show('.addPage');
+            show('.addPath');
         }
-        $('.delAll').show();
+
+        show('.delAll');
     }
 
     function registerButtonEvents() {
-        $('button[name=addPage]').on('click', () => {
+        document.querySelector('button[name=addPage]').addEventListener('click', () => {
             isPageTranslate = true;
             setPage(true);
             applyButtonState();
             renderTabLists();
-            $('#tab-page').trigger('click'); // ✅ 탭 전환
+            document.getElementById('tab-page').click();
         });
 
-        $('button[name=addPath]').on('click', () => {
+        document.querySelector('button[name=addPath]').addEventListener('click', () => {
             isPathTranslate = true;
             setPath(true);
             applyButtonState();
             renderTabLists();
-            $('#tab-path').trigger('click'); // ✅ 탭 전환
+            document.getElementById('tab-path').click();
         });
 
-        $('button[name=delPage]').on('click', () => {
+        document.querySelector('button[name=delPage]').addEventListener('click', () => {
             isPageTranslate = false;
             setPage(false);
             applyButtonState();
             renderTabLists();
         });
 
-        $('button[name=delPath]').on('click', () => {
+        document.querySelector('button[name=delPath]').addEventListener('click', () => {
             isPathTranslate = false;
             setPath(false);
             applyButtonState();
             renderTabLists();
         });
 
-        $('button[name=delAll]').on('click', () => {
+        document.querySelector('button[name=delAll]').addEventListener('click', () => {
             isPageTranslate = false;
             isPathTranslate = false;
             delAll();
             applyButtonState();
-            $('#content-page').html('<p>저장된 페이지가 없습니다.</p>');
-            $('#content-path').html('<p>저장된 경로가 없습니다.</p>');
+            document.getElementById('content-page').innerHTML = '<p>저장된 페이지가 없습니다.</p>';
+            document.getElementById('content-path').innerHTML = '<p>저장된 경로가 없습니다.</p>';
         });
     }
 
@@ -123,79 +122,77 @@
     }
 
     function renderTabLists() {
-        renderList($('#content-page'), bookmark.page, 'page');
-        renderList($('#content-path'), bookmark.path, 'path');
+        renderList(document.getElementById('content-page'), bookmark.page, 'page');
+        renderList(document.getElementById('content-path'), bookmark.path, 'path');
     }
 
-    function renderList($target, data, key) {
-        $target.empty();
+    function renderList(container, data, key) {
+        container.innerHTML = '';
 
         if (!data || Object.keys(data).length === 0) {
-            $target.append(`<p>저장된 ${key === 'page' ? '페이지' : '경로'}가 없습니다.</p>`);
+            container.innerHTML = `<p>저장된 ${key === 'page' ? '페이지' : '경로'}가 없습니다.</p>`;
             return;
         }
 
-        const $ul = $('<ul></ul>');
+        const ul = document.createElement('ul');
         const urls = Object.keys(data);
         const currentUrl = key === 'page' ? currentPage : currentPath;
 
-        urls.sort((a, b) => {
-            if (a === currentUrl) return -1;
-            if (b === currentUrl) return 1;
-            return 0;
-        });
+        urls.sort((a, b) => (a === currentUrl ? -1 : b === currentUrl ? 1 : 0));
 
         urls.forEach((url) => {
-            const $li = $('<li></li>');
-            const $span = $('<span></span>').text(url);
-            const $btn = $('<button class="delete-btn" title="삭제">✕</button>').data({key, url});
+            const li = document.createElement('li');
+            const span = document.createElement('span');
+            span.textContent = url;
+            const btn = document.createElement('button');
+            btn.className = 'delete-btn';
+            btn.title = '삭제';
+            btn.textContent = '✕';
 
-            $btn.on('click', () => {
+            btn.addEventListener('click', () => {
                 delete bookmark[key][url];
                 setSyncStorage(bookmark);
 
-                if (key === 'page' && url === currentPage) {
-                    isPageTranslate = false;
-                }
-                if (key === 'path' && url === currentPath) {
-                    isPathTranslate = false;
-                }
+                if (key === 'page' && url === currentPage) isPageTranslate = false;
+                if (key === 'path' && url === currentPath) isPathTranslate = false;
 
                 applyButtonState();
-                $li.remove();
+                li.remove();
                 chrome.runtime.sendMessage({type: 'TRANSLATE_NOW_FORCE'});
             });
 
-            $li.append($span).append($btn);
-            $ul.append($li);
+            li.appendChild(span);
+            li.appendChild(btn);
+            ul.appendChild(li);
         });
 
-        $target.append($ul);
+        container.appendChild(ul);
     }
 
     function registerTabEvents() {
-        $('#tab-page').on('click', () => {
-            $('#tab-page').addClass('active');
-            $('#tab-path').removeClass('active');
-            $('#content-page').removeClass('hidden');
-            $('#content-path').addClass('hidden');
+        const tabPage = document.getElementById('tab-page');
+        const tabPath = document.getElementById('tab-path');
+        const contentPage = document.getElementById('content-page');
+        const contentPath = document.getElementById('content-path');
+
+        tabPage.addEventListener('click', () => {
+            tabPage.classList.add('active');
+            tabPath.classList.remove('active');
+            contentPage.classList.remove('hidden');
+            contentPath.classList.add('hidden');
         });
 
-        $('#tab-path').on('click', () => {
-            $('#tab-path').addClass('active');
-            $('#tab-page').removeClass('active');
-            $('#content-path').removeClass('hidden');
-            $('#content-page').addClass('hidden');
+        tabPath.addEventListener('click', () => {
+            tabPath.classList.add('active');
+            tabPage.classList.remove('active');
+            contentPath.classList.remove('hidden');
+            contentPage.classList.add('hidden');
         });
 
-        if (isPathTranslate) {
-            $('#tab-path').trigger('click');
-        } else {
-            $('#tab-page').trigger('click');
-        }
+        (isPathTranslate ? tabPath : tabPage).click();
     }
 
-    $(async function () {
+    document.addEventListener('DOMContentLoaded', async () => {
         changeEventListener();
         await initialize();
         applyButtonState();

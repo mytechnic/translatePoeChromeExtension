@@ -31,9 +31,18 @@
         "https://*/*"
       ],
       "js": [
-        "scripts/jquery-3.7.1.min.js",
         "scripts/common.js",
         "scripts/content.js"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "scripts/content.js"
+      ],
+      "matches": [
+        "<all_urls>"
       ]
     }
   ]

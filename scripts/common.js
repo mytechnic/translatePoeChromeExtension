@@ -1,5 +1,4 @@
-// common.js
-
+// ✅ jquery-free common.js
 (() => {
     function getPageUrl(url) {
         let page = url.split('?')[0];
@@ -16,23 +15,14 @@
     }
 
     function versionPromise() {
-        return new Promise((resolve) => {
-            $.ajax({
-                dataType: 'json',
-                url: 'https://mytechnic.github.io/translate/poe_kr_version.json',
-                success: (result) => resolve(result['version']),
-            });
-        });
+        return fetch('https://mytechnic.github.io/translate/poe_kr_version.json')
+            .then((res) => res.json())
+            .then((data) => data.version);
     }
 
     function dictionaryPromise() {
-        return new Promise((resolve) => {
-            $.ajax({
-                dataType: 'json',
-                url: 'https://mytechnic.github.io/translate/poe_kr.json',
-                success: (result) => resolve(result),
-            });
-        });
+        return fetch('https://mytechnic.github.io/translate/poe_kr.json')
+            .then((res) => res.json());
     }
 
     function localStoragePromise() {
