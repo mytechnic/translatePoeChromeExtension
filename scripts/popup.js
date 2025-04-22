@@ -9,14 +9,22 @@
 
     function setPage(translate) {
         bookmark.page = bookmark.page || {};
-        bookmark.page[currentPage] = translate;
+        if (translate) {
+            bookmark.page[currentPage] = true;
+        } else {
+            delete bookmark.page[currentPage];
+        }
         setSyncStorage(bookmark);
         chrome.runtime.sendMessage({type: 'TRANSLATE_NOW_FORCE'});
     }
 
     function setPath(translate) {
         bookmark.path = bookmark.path || {};
-        bookmark.path[currentPath] = translate;
+        if (translate) {
+            bookmark.path[currentPath] = true;
+        } else {
+            delete bookmark.path[currentPath];
+        }
         setSyncStorage(bookmark);
         chrome.runtime.sendMessage({type: 'TRANSLATE_NOW_FORCE'});
     }
@@ -91,11 +99,13 @@
     }
 
     function changeEventListener() {
-        onChangeStorage((changes, namespace) => {
-            if (namespace === 'local' && changes.version) {
-                updateVersionText(changes.version.newValue);
-            }
-        });
+        if (typeof onChangeStorage === 'function') {
+            onChangeStorage((changes, namespace) => {
+                if (namespace === 'local' && changes.version) {
+                    updateVersionText(changes.version.newValue);
+                }
+            });
+        }
     }
 
     async function initialize() {
@@ -157,7 +167,7 @@
                 if (key === 'path' && url === currentPath) isPathTranslate = false;
 
                 applyButtonState();
-                li.remove();
+                renderTabLists();
                 chrome.runtime.sendMessage({type: 'TRANSLATE_NOW_FORCE'});
             });
 
