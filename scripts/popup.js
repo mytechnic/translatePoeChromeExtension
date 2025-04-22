@@ -1,5 +1,7 @@
 // ✅ jquery-free popup.js
 (() => {
+    console.log('onChangeStorage?', typeof onChangeStorage); // ✅ 여기!
+
     let isPageTranslate = false;
     let isPathTranslate = false;
     let currentPath = '';
@@ -16,6 +18,7 @@
         }
         setSyncStorage(bookmark);
         chrome.runtime.sendMessage({type: 'TRANSLATE_NOW_FORCE'});
+        renderAutoTranslateStatus();
     }
 
     function setPath(translate) {
@@ -27,15 +30,29 @@
         }
         setSyncStorage(bookmark);
         chrome.runtime.sendMessage({type: 'TRANSLATE_NOW_FORCE'});
+        renderAutoTranslateStatus();
     }
 
     function delAll() {
         clearSyncStorage();
         chrome.runtime.sendMessage({type: 'TRANSLATE_NOW_FORCE'});
+        renderAutoTranslateStatus();
     }
 
     function updateVersionText(version) {
         document.getElementById('version').textContent = version;
+    }
+
+    function renderAutoTranslateStatus() {
+        const statusEl = document.getElementById('auto-translate-status');
+        if (!statusEl) return;
+        if (isPageTranslate || isPathTranslate) {
+            statusEl.textContent = '🟢 이 페이지는 번역 중입니다';
+            statusEl.className = 'status on';
+        } else {
+            statusEl.textContent = '🔴 번역되지 않는 페이지입니다';
+            statusEl.className = 'status off';
+        }
     }
 
     function applyButtonState() {
@@ -55,6 +72,7 @@
         }
 
         show('.delAll');
+        renderAutoTranslateStatus();
     }
 
     function registerButtonEvents() {
@@ -125,6 +143,7 @@
             const version = (localStorage && localStorage.version) || -1;
             cacheVersion = version;
             updateVersionText(cacheVersion);
+            renderAutoTranslateStatus();
             renderTabLists();
         } catch (error) {
             console.error('초기화 실패:', error);

@@ -16,13 +16,13 @@
 
     function versionPromise() {
         return fetch('https://mytechnic.github.io/translate/poe_kr_version.json')
-            .then((res) => res.json())
-            .then((data) => data.version);
+            .then(res => res.json())
+            .then(data => data.version);
     }
 
     function dictionaryPromise() {
         return fetch('https://mytechnic.github.io/translate/poe_kr.json')
-            .then((res) => res.json());
+            .then(res => res.json());
     }
 
     function localStoragePromise() {
@@ -62,7 +62,7 @@
         });
     }
 
-    // export to window
+    // export to window (전역 등록)
     window.getPageUrl = getPageUrl;
     window.getPathUrl = getPathUrl;
     window.versionPromise = versionPromise;

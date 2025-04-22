@@ -12,29 +12,37 @@
 <body>
 <div class="body">
     <header class="head">스타빈 POE 번역기</header>
-    <section class="version">사전 버전: <span id="version">-</span></section>
+
+    <!-- 상단 IGN + 버전 정보 정렬 -->
+    <section class="meta">
+        <span class="ign">패스 오브 액자일 IGN: <strong>@스타빈</strong></span>
+        <span class="version">사전 버전: <span id="version">-</span></span>
+    </section>
+
+    <!-- 자동 번역 상태 표시 -->
+    <section id="auto-translate-status" class="status off">🔴 이 페이지는 번역되지 않고 있어요</section>
 
     <section class="controls">
-        <button name="addPage" class="addPage">[+] 현재 웹페이지 번역</button>
-        <button name="addPath" class="addPath">[+] 현재 경로 전체 번역</button>
-        <button name="delPage" class="delPage">[-] 현재 웹페이지 번역 취소</button>
-        <button name="delPath" class="delPath">[-] 현재 경로 전체 번역 취소</button>
-        <button name="delAll" class="delAll">[-] 전체 초기화</button>
+        <button name="addPage" class="addPage">✅ 지금 페이지 번역하기</button>
+        <button name="addPath" class="addPath">✅ 이 경로 전부 번역하기</button>
+        <button name="delPage" class="delPage">❎ 이 페이지 번역 끄기</button>
+        <button name="delPath" class="delPath">❎ 이 경로 번역 끄기</button>
+        <button name="delAll" class="delAll">🧹 전부 초기화할래요</button>
     </section>
 
+    <!-- 탭 메뉴 -->
     <section class="tab-menu">
-        <button id="tab-page" class="tab active">📄 현재 페이지</button>
-        <button id="tab-path" class="tab">🌐 전체 경로</button>
+        <button id="tab-page" class="tab active">📄 번역 중인 페이지</button>
+        <button id="tab-path" class="tab">🌐 번역 중인 경로</button>
     </section>
 
+    <!-- 콘텐츠 영역 -->
     <section class="tab-content" id="content-page">
         <p>불러오는 중...</p>
     </section>
     <section class="tab-content hidden" id="content-path">
         <p>불러오는 중...</p>
     </section>
-
-    <footer class="foot">패스 오브 액자일 IGN: <strong>@스타빈</strong></footer>
 </div>
 </body>
 </html>
