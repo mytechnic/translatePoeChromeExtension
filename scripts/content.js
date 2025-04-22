@@ -152,7 +152,7 @@
 
     function observeDocumentChanges() {
         const observer = new MutationObserver((mutations) => {
-            if (!autoTranslate) return; // ✅ 번역이 꺼진 경우 무시
+            if (!autoTranslate) return;
             for (const mutation of mutations) {
                 mutation.addedNodes.forEach((node) => {
                     if (node.nodeType === 1 || node.nodeType === 3) {
@@ -185,7 +185,6 @@
                     }
                     dictionaryInitialized = true;
 
-                    // ✅ 사전 로딩 후 대기 중이던 번역 요청 처리
                     if (pendingTranslateRequest) {
                         setTimeout(() => {
                             console.log('[changeEventListener] 요청 감지 후 번역 실행');
@@ -236,7 +235,6 @@
             }, 500);
         }
 
-        // ✅ 혹시 번역 요청이 이미 대기 중이었다면 즉시 실행
         if (pendingTranslateRequest && !dictionaryInitialized) {
             dictionaryInitialized = true;
             setTimeout(() => {
@@ -262,10 +260,11 @@
         });
     }
 
-    $(async function () {
+    // ✅ jQuery 없이 즉시 실행
+    (async function () {
         onTranslateRequest(() => translateNode(document.body));
         changeEventListener();
         await initialize();
         observeDocumentChanges();
-    });
+    })();
 })();
