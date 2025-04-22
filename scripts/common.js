@@ -1,47 +1,88 @@
-function getPageUrl(url) {
-    let page = url.split('?')[0];
+// common.js
 
-    if (page.endsWith('/')) {
-        page = page.slice(0, -1);
+(() => {
+    function getPageUrl(url) {
+        let page = url.split('?')[0];
+        return page.endsWith('/') ? page.slice(0, -1) : page;
     }
 
-    return page;
-}
-
-function getPathUrl(url) {
-    if (url.startsWith('https://poe.ninja/builds/necropolis/character/')) {
-        return 'https://poe.ninja/builds/necropolis/character/';
-    } else if (url.startsWith('https://poe.ninja/builds/streamers/character/')) {
-        return 'https://poe.ninja/builds/streamers/character/';
+    function getPathUrl(url) {
+        if (url.startsWith('https://poe.ninja/builds/necropolis/character/')) {
+            return 'https://poe.ninja/builds/necropolis/character/';
+        } else if (url.startsWith('https://poe.ninja/builds/streamers/character/')) {
+            return 'https://poe.ninja/builds/streamers/character/';
+        }
+        return url.endsWith('/') ? url : url.split('/').slice(0, -1).join('/') + '/';
     }
 
-    if (url.endsWith('/')) {
-        return url;
-    }
-
-    return url.split('/').slice(0, -1).join('/') + '/';
-}
-
-function versionPromise() {
-    return new Promise((resolve, reject) => {
-        $.ajax({
-            dataType: 'json',
-            url: 'https://mytechnic.github.io/translate/poe_kr_version.json',
-            success: function (result) {
-                resolve(result['version']);
-            }
+    function versionPromise() {
+        return new Promise((resolve) => {
+            $.ajax({
+                dataType: 'json',
+                url: 'https://mytechnic.github.io/translate/poe_kr_version.json',
+                success: (result) => resolve(result['version']),
+            });
         });
-    });
-}
+    }
 
-function dictionaryPromise() {
-    return new Promise((resolve, reject) => {
-        $.ajax({
-            dataType: 'json',
-            url: 'https://mytechnic.github.io/translate/poe_kr.json',
-            success: function (result) {
-                resolve(result);
-            }
+    function dictionaryPromise() {
+        return new Promise((resolve) => {
+            $.ajax({
+                dataType: 'json',
+                url: 'https://mytechnic.github.io/translate/poe_kr.json',
+                success: (result) => resolve(result),
+            });
         });
-    });
-}
+    }
+
+    function localStoragePromise() {
+        return chrome.storage.local.get();
+    }
+
+    function syncStoragePromise() {
+        return chrome.storage.sync.get();
+    }
+
+    function tabsPromise() {
+        return chrome.tabs.query({active: true, currentWindow: true});
+    }
+
+    function setLocalStorage(data) {
+        chrome.storage.local.set(data);
+    }
+
+    function setSyncStorage(data) {
+        chrome.storage.sync.set(data);
+    }
+
+    function onChangeStorage(func) {
+        chrome.storage.onChanged.addListener((changes, namespace) => {
+            func(changes, namespace);
+        });
+    }
+
+    function clearSyncStorage() {
+        chrome.storage.sync.clear();
+        chrome.storage.local.clear();
+    }
+
+    function chromeOnMessage(handler) {
+        chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+            handler(message, sender, sendResponse);
+        });
+    }
+
+    // export to window
+    window.getPageUrl = getPageUrl;
+    window.getPathUrl = getPathUrl;
+    window.versionPromise = versionPromise;
+    window.dictionaryPromise = dictionaryPromise;
+    window.localStoragePromise = localStoragePromise;
+    window.syncStoragePromise = syncStoragePromise;
+    window.tabsPromise = tabsPromise;
+    window.setLocalStorage = setLocalStorage;
+    window.setSyncStorage = setSyncStorage;
+    window.onChangeStorage = onChangeStorage;
+    window.clearSyncStorage = clearSyncStorage;
+    window.chromeOnMessage = chromeOnMessage;
+})();
