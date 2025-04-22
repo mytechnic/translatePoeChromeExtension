@@ -5,34 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="91d6ca4b-9f33-4d5a-920c-af450833c748" name="Changes" comment="1.8.1">
+      <change afterPath="$PROJECT_DIR$/images/popup-bg.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/background.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.8.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.8/css/popup.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.8/images/icon-128.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.8/images/icon-16.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.8/images/icon-32.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.8/images/icon-48.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.8/images/popup.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.8/manifest.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.8/popup.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.8/scripts/chrome_api.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.8/scripts/common.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.8/scripts/content.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.8/scripts/jquery-3.7.1.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/StarPoeTranslate-v1.8/scripts/popup.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.8/css/popup.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.8/images/icon-128.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.8/images/icon-16.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.8/images/icon-32.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.8/images/icon-48.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.8/images/popup.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.8/manifest.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.8/popup.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.8/scripts/chrome_api.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.8/scripts/common.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.8/scripts/content.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.8/scripts/jquery-3.7.1.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.8/scripts/popup.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/popup.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/popup.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.9.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.9/css/popup.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.9/images/icon-128.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.9/images/icon-16.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.9/images/icon-32.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.9/images/icon-48.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.9/images/popup.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.9/manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.9/popup.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.9/scripts/chrome_api.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.9/scripts/common.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.9/scripts/content.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.9/scripts/jquery-3.7.1.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pack/StarPoeTranslate-v1.9/scripts/popup.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/popup.html" beforeDir="false" afterPath="$PROJECT_DIR$/popup.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/chrome_api.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/common.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/common.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/content.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/content.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/popup.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/popup.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,14 +45,12 @@
     &quot;assignee&quot;: &quot;mytechnic&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">
-    <option name="selectedUrlAndAccountId">
-      <UrlAndAccount>
-        <option name="accountId" value="4047c834-afb8-41a1-b46e-5b1cb77a2606" />
-        <option name="url" value="https://github.com/mytechnic/translatePoeChromeExtension.git" />
-      </UrlAndAccount>
-    </option>
-  </component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/mytechnic/translatePoeChromeExtension.git",
+    "accountId": "0cdc59fd-ca71-4e48-b85b-fa3be4798019"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -68,25 +62,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/STARBUN/Desktop/Game/StarPoeTranslate/build2/StarPoeTranslate-v1.8/scripts&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.general&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/STARBUN/Desktop/Game/StarPoeTranslate/build2/StarPoeTranslate-v1.8/scripts",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.general",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\STARBUN\Desktop\Game\StarPoeTranslate\build2\StarPoeTranslate-v1.8\scripts" />
@@ -102,7 +97,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-19.0.2-corretto-19.0.2-f644763e9732-1e16d6ec" />
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.26053.27" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.26053.27" />
       </set>
     </attachedChunks>
   </component>
@@ -142,6 +138,7 @@
       <workItem from="1715331731556" duration="9000" />
       <workItem from="1715609959183" duration="636000" />
       <workItem from="1715697085816" duration="1202000" />
+      <workItem from="1745284959575" duration="15705000" />
     </task>
     <task id="LOCAL-00001" summary="최초 동작 버전">
       <option name="closed" value="true" />
