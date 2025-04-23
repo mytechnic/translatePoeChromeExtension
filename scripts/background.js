@@ -1,9 +1,7 @@
-// background.js
+// scripts/background.js
 
 (() => {
     chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-        console.log('[background.js] RECEIVED:', message);
-
         if (message.type === 'TRANSLATE_NOW_FORCE') {
             chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
                 const tab = tabs?.[0];
@@ -23,7 +21,7 @@
                             files: ['scripts/content.js']
                         },
                         () => {
-                            console.log('[background.js] content.js injected into tab:', tabId);
+                            console.log('[background.js] content.js reinjected');
                             sendResponse({status: 'executed'});
                         }
                     );
@@ -33,8 +31,7 @@
                 }
             });
 
-            // Indicate that response will be sent asynchronously
-            return true;
+            return true; // Keep sendResponse alive
         }
     });
 })();

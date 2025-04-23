@@ -1,10 +1,8 @@
-/* popup.css */
-
 html, body {
-    width: 320px;
-    height: 480px;
-    min-width: 320px;
-    max-height: 480px;
+    width: 500px;
+    height: 600px;
+    min-width: 500px;
+    max-height: 600px;
     margin: 0;
     background-color: #1a1a1a;
     background-image: url('../images/popup-bg.jpg');
@@ -16,16 +14,16 @@ html, body {
     overflow: hidden;
 }
 
-body, div, span, img {
+body, div, span, img, textarea {
     border: 0;
     margin: 0;
     padding: 0;
-    font-size: 14px;
+    font-size: 15px;
     box-sizing: border-box;
 }
 
 .head {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: bold;
     color: #e6c17b;
     padding: 1rem;
@@ -34,13 +32,12 @@ body, div, span, img {
     background-color: rgba(20, 12, 4, 0.8);
 }
 
-/* IGN + 버전 정보 영역 */
 .meta {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.25rem 1rem 0.5rem;
-    font-size: 12px;
+    padding: 0.3rem 1.4rem 0.5rem;
+    font-size: 13px;
     color: #b8a176;
     text-shadow: 0 0 2px #000;
 }
@@ -49,12 +46,11 @@ body, div, span, img {
     font-weight: bold;
 }
 
-/* 자동 번역 상태 */
 .status {
-    font-size: 13px;
+    font-size: 14px;
     text-align: center;
-    margin: 0.2rem 0 0.8rem;
-    padding: 0.3rem;
+    margin: 0.3rem 0 1rem;
+    padding: 0.4rem;
     font-weight: bold;
     text-shadow: 0 0 2px #000;
 }
@@ -68,23 +64,20 @@ body, div, span, img {
 }
 
 .controls {
-    padding: 0 1rem;
     display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.6rem;
+    padding: 0 1.4rem;
 }
 
-.foot {
-    text-align: center;
-    padding: 1rem;
-    font-size: 12px;
-    color: #7c6e55;
-    text-shadow: 0 0 2px #000;
+.controls button {
+    flex: 1 1 calc(50% - 0.3rem);
 }
 
 button {
-    padding: 0.6rem 1rem;
-    font-size: 14px;
+    padding: 0.7rem 1.2rem;
+    font-size: 15px;
     font-weight: 500;
     color: #f0e6c3;
     background: linear-gradient(to right, #543f1c, #7c6236);
@@ -110,25 +103,26 @@ button:focus-visible {
     outline-offset: 2px;
 }
 
-@keyframes active {
-    0% {
-        box-shadow: 0 0 6px 2px #d6b36d;
-    }
-    100% {
-        box-shadow: 0 0 10px 4px #d6b36d;
-    }
+button.danger {
+    background: #6e2e2e;
+    border-color: #a44;
+    color: #ffeaea;
 }
 
-/* 탭 메뉴 영역 */
+button.danger:hover {
+    background: #832f2f;
+}
+
+/* 탭 메뉴 */
 .tab-menu {
     display: flex;
-    margin: 1rem 1rem 0.5rem;
+    margin: 1.2rem 1.4rem 0.6rem;
     border-bottom: 1px solid #7a6241;
 }
 
 .tab {
     flex: 1;
-    padding: 0.6rem;
+    padding: 0.7rem;
     font-size: 14px;
     text-align: center;
     color: #f0e6c3;
@@ -144,16 +138,20 @@ button:focus-visible {
     border-bottom: 2px solid #d6b36d;
 }
 
-/* 탭 콘텐츠 영역 */
+/* 콘텐츠 영역 */
 .tab-content {
-    height: 120px;
+    padding: 0.6rem 1.4rem;
+    font-size: 14px;
     overflow-y: auto;
-    padding: 0.5rem 1rem;
-    font-size: 13px;
 }
 
 .tab-content.hidden {
     display: none;
+}
+
+#content-dictionary {
+    height: auto;
+    overflow-y: visible;
 }
 
 .tab-content ul {
@@ -166,7 +164,7 @@ button:focus-visible {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.5rem;
     word-break: break-word;
 }
 
@@ -177,10 +175,34 @@ button:focus-visible {
     color: #d89;
     font-weight: bold;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 15px;
     margin-left: 0.5rem;
 }
 
 .delete-btn:hover {
     color: #f55;
+}
+
+/* 사용자 사전 */
+#dictionary-editor {
+    width: 100%;
+    height: 180px;
+    background: #2a2a2a;
+    color: #eee;
+    padding: 0.6rem;
+    margin: 0.6rem 0 0.2rem;
+    font-size: 14px;
+    font-family: monospace;
+    border-radius: 4px;
+    border: 1px solid #555;
+    resize: vertical;
+    overflow-y: auto;
+    line-height: 1.4;
+    box-sizing: border-box;
+}
+
+.dictionary-help {
+    font-size: 12px;
+    color: #bfa;
+    margin: 0.2rem 0 0.4rem;
 }

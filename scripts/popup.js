@@ -1,63 +1,125 @@
-// ✅ jquery-free popup.js
+// scripts/popup.js
 (() => {
-    console.log('onChangeStorage?', typeof onChangeStorage); // ✅ 여기!
+    function activateTab(id) {
+        document.querySelectorAll('.tab').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(sec => sec.classList.add('hidden'));
+        document.getElementById(`tab-${id}`).classList.add('active');
+        document.getElementById(`content-${id}`).classList.remove('hidden');
+    }
 
     let isPageTranslate = false;
     let isPathTranslate = false;
-    let currentPath = '';
     let currentPage = '';
+    let currentPath = '';
     let cacheVersion = -1;
     let bookmark = {};
 
+    function getPageUrl(url) {
+        return url.split('?')[0].replace(/\/$/, '');
+    }
+
+    function getPathUrl(url) {
+        return url.split('?')[0].split('/').slice(0, -1).join('/') + '/';
+    }
+
+    function isMatchPage(url) {
+        const page = getPageUrl(url);
+        return !!bookmark.page?.[page];
+    }
+
+    function isMatchPath(url) {
+        return Object.keys(bookmark.path || {}).some(p => url.startsWith(p));
+    }
+
+    const updateTranslationState = () => {
+        const pageUrl = getPageUrl(location.href);
+        const pathUrl = getPathUrl(location.href);
+
+        isPageTranslate = !!bookmark.page?.[pageUrl] || Object.keys(bookmark.page || {}).some(p => pageUrl.startsWith(p));
+        isPathTranslate = Object.keys(bookmark.path || {}).some(p => location.href.startsWith(p));
+
+        // 상태 갱신 후 로그 출력
+        console.log('isPageTranslate:', isPageTranslate);
+        console.log('isPathTranslate:', isPathTranslate);
+
+        renderStatus();
+        renderTabLists();
+        applyButtonState();
+    };
+
     function setPage(translate) {
         bookmark.page = bookmark.page || {};
-        if (translate) {
-            bookmark.page[currentPage] = true;
-        } else {
-            delete bookmark.page[currentPage];
-        }
+        if (translate) bookmark.page[currentPage] = true;
+        else delete bookmark.page[currentPage];
         setSyncStorage(bookmark);
         chrome.runtime.sendMessage({type: 'TRANSLATE_NOW_FORCE'});
-        renderAutoTranslateStatus();
+        chrome.storage.local.set({forceTabByUrl: true});
+
+        updateTranslationState();  // 상태 업데이트
     }
 
     function setPath(translate) {
         bookmark.path = bookmark.path || {};
-        if (translate) {
-            bookmark.path[currentPath] = true;
-        } else {
-            delete bookmark.path[currentPath];
-        }
+        if (translate) bookmark.path[currentPath] = true;
+        else delete bookmark.path[currentPath];
         setSyncStorage(bookmark);
         chrome.runtime.sendMessage({type: 'TRANSLATE_NOW_FORCE'});
-        renderAutoTranslateStatus();
+        chrome.storage.local.set({forceTabByUrl: true});
+
+        updateTranslationState();  // 상태 업데이트
     }
 
-    function delAll() {
-        clearSyncStorage();
-        chrome.runtime.sendMessage({type: 'TRANSLATE_NOW_FORCE'});
-        renderAutoTranslateStatus();
-    }
-
-    function updateVersionText(version) {
-        document.getElementById('version').textContent = version;
-    }
-
-    function renderAutoTranslateStatus() {
+    function renderStatus() {
         const statusEl = document.getElementById('auto-translate-status');
-        if (!statusEl) return;
         if (isPageTranslate || isPathTranslate) {
             statusEl.textContent = '🟢 이 페이지는 번역 중입니다';
             statusEl.className = 'status on';
         } else {
-            statusEl.textContent = '🔴 번역되지 않는 페이지입니다';
+            statusEl.textContent = '🔴 이 페이지는 아직 번역되지 않았어요';
             statusEl.className = 'status off';
         }
     }
 
+    function renderTabLists() {
+        renderList('content-page', bookmark.page, 'page');
+        renderList('content-path', bookmark.path, 'path');
+    }
+
+    function renderList(containerId, data, key) {
+        const container = document.getElementById(containerId);
+        container.innerHTML = '';
+
+        if (!data || Object.keys(data).length === 0) {
+            container.innerHTML = `<p>저장된 ${key === 'page' ? '페이지' : '경로'}가 없습니다.</p>`;
+            return;
+        }
+
+        const ul = document.createElement('ul');
+        Object.keys(data).forEach(url => {
+            const li = document.createElement('li');
+            li.textContent = url;
+
+            const btn = document.createElement('button');
+            btn.textContent = '✕';
+            btn.className = 'delete-btn';
+            btn.onclick = () => {
+                delete bookmark[key][url];
+                setSyncStorage(bookmark);
+
+                // URL 삭제 후 상태 업데이트
+                updateTranslationState();
+                chrome.runtime.sendMessage({type: 'TRANSLATE_NOW_FORCE'});
+            };
+
+            li.appendChild(btn);
+            ul.appendChild(li);
+        });
+        container.appendChild(ul);
+    }
+
     function applyButtonState() {
-        const show = (selector) => document.querySelector(selector).style.display = '';
-        const hide = (selector) => document.querySelector(selector).style.display = 'none';
+        const show = id => document.querySelector(id).style.display = '';
+        const hide = id => document.querySelector(id).style.display = 'none';
 
         hide('.addPage');
         hide('.addPath');
@@ -71,161 +133,113 @@
             show('.addPath');
         }
 
-        show('.delAll');
-        renderAutoTranslateStatus();
+        renderStatus();
     }
 
-    function registerButtonEvents() {
-        document.querySelector('button[name=addPage]').addEventListener('click', () => {
+    function bindEvents() {
+        document.querySelector('button[name=addPage]').onclick = () => {
             isPageTranslate = true;
             setPage(true);
             applyButtonState();
             renderTabLists();
-            document.getElementById('tab-page').click();
-        });
+            activateTab('page');
+        };
 
-        document.querySelector('button[name=addPath]').addEventListener('click', () => {
+        document.querySelector('button[name=addPath]').onclick = () => {
             isPathTranslate = true;
             setPath(true);
             applyButtonState();
             renderTabLists();
-            document.getElementById('tab-path').click();
-        });
+            activateTab('path');
+        };
 
-        document.querySelector('button[name=delPage]').addEventListener('click', () => {
+        document.querySelector('button[name=delPage]').onclick = () => {
             isPageTranslate = false;
             setPage(false);
             applyButtonState();
             renderTabLists();
-        });
+        };
 
-        document.querySelector('button[name=delPath]').addEventListener('click', () => {
+        document.querySelector('button[name=delPath]').onclick = () => {
             isPathTranslate = false;
             setPath(false);
             applyButtonState();
             renderTabLists();
-        });
+        };
 
-        document.querySelector('button[name=delAll]').addEventListener('click', () => {
-            isPageTranslate = false;
-            isPathTranslate = false;
-            delAll();
-            applyButtonState();
-            document.getElementById('content-page').innerHTML = '<p>저장된 페이지가 없습니다.</p>';
-            document.getElementById('content-path').innerHTML = '<p>저장된 경로가 없습니다.</p>';
+        document.getElementById('save-dictionary').onclick = () => {
+            const raw = document.getElementById('dictionary-editor').value;
+            chrome.storage.local.set({userDictionary: raw});
+            alert('사용자 사전이 저장되었습니다.');
+        };
+
+        document.getElementById('reset-all').onclick = () => {
+            const confirmMsg = '정말 초기화하시겠어요? 저장된 설정과 단어장이 삭제됩니다.';
+            if (confirm(confirmMsg)) {
+                chrome.storage.local.clear();
+                setSyncStorage({page: {}, path: {}});
+                document.getElementById('dictionary-editor').value = '';
+
+                // 상태 갱신 후 호출
+                updateTranslationState();
+            }
+        };
+
+        ['page', 'path', 'dictionary', 'settings'].forEach(name => {
+            const tab = document.getElementById(`tab-${name}`);
+            const content = document.getElementById(`content-${name}`);
+            tab.onclick = () => {
+                document.querySelectorAll('.tab').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(sec => sec.classList.add('hidden'));
+                tab.classList.add('active');
+                content.classList.remove('hidden');
+                chrome.storage.local.set({lastTab: name});
+            };
         });
     }
 
-    function changeEventListener() {
-        if (typeof onChangeStorage === 'function') {
-            onChangeStorage((changes, namespace) => {
-                if (namespace === 'local' && changes.version) {
-                    updateVersionText(changes.version.newValue);
-                }
-            });
-        }
-    }
+    async function init() {
+        const [tabs, local, sync] = await Promise.all([
+            tabsPromise(), localStoragePromise(), syncStoragePromise()
+        ]);
+        const url = tabs?.[0]?.url || '';
 
-    async function initialize() {
-        try {
-            const [tabs, localStorage, syncStorage] = await Promise.all([
-                tabsPromise(),
-                localStoragePromise(),
-                syncStoragePromise()
-            ]);
+        currentPage = getPageUrl(url);
+        currentPath = getPathUrl(url);
+        bookmark = sync || {page: {}, path: {}};
+        isPageTranslate = isMatchPage(url);
+        isPathTranslate = isMatchPath(url);
+        cacheVersion = local.version || -1;
 
-            const url = (tabs && tabs[0] && tabs[0].url) || '';
-            bookmark = syncStorage || {page: {}, path: {}, autoTranslate: false};
-            currentPage = getPageUrl(url);
-            currentPath = getPathUrl(url);
-            isPageTranslate = !!(bookmark.page && bookmark.page[currentPage]);
-            isPathTranslate = !!(bookmark.path && bookmark.path[currentPath]);
-            const version = (localStorage && localStorage.version) || -1;
-            cacheVersion = version;
-            updateVersionText(cacheVersion);
-            renderAutoTranslateStatus();
-            renderTabLists();
-        } catch (error) {
-            console.error('초기화 실패:', error);
-        }
-    }
-
-    function renderTabLists() {
-        renderList(document.getElementById('content-page'), bookmark.page, 'page');
-        renderList(document.getElementById('content-path'), bookmark.path, 'path');
-    }
-
-    function renderList(container, data, key) {
-        container.innerHTML = '';
-
-        if (!data || Object.keys(data).length === 0) {
-            container.innerHTML = `<p>저장된 ${key === 'page' ? '페이지' : '경로'}가 없습니다.</p>`;
-            return;
-        }
-
-        const ul = document.createElement('ul');
-        const urls = Object.keys(data);
-        const currentUrl = key === 'page' ? currentPage : currentPath;
-
-        urls.sort((a, b) => (a === currentUrl ? -1 : b === currentUrl ? 1 : 0));
-
-        urls.forEach((url) => {
-            const li = document.createElement('li');
-            const span = document.createElement('span');
-            span.textContent = url;
-            const btn = document.createElement('button');
-            btn.className = 'delete-btn';
-            btn.title = '삭제';
-            btn.textContent = '✕';
-
-            btn.addEventListener('click', () => {
-                delete bookmark[key][url];
-                setSyncStorage(bookmark);
-
-                if (key === 'page' && url === currentPage) isPageTranslate = false;
-                if (key === 'path' && url === currentPath) isPathTranslate = false;
-
-                applyButtonState();
-                renderTabLists();
-                chrome.runtime.sendMessage({type: 'TRANSLATE_NOW_FORCE'});
-            });
-
-            li.appendChild(span);
-            li.appendChild(btn);
-            ul.appendChild(li);
+        document.getElementById('version').textContent = cacheVersion;
+        chrome.storage.local.get('userDictionary', result => {
+            document.getElementById('dictionary-editor').value = result.userDictionary || '';
         });
 
-        container.appendChild(ul);
-    }
-
-    function registerTabEvents() {
-        const tabPage = document.getElementById('tab-page');
-        const tabPath = document.getElementById('tab-path');
-        const contentPage = document.getElementById('content-page');
-        const contentPath = document.getElementById('content-path');
-
-        tabPage.addEventListener('click', () => {
-            tabPage.classList.add('active');
-            tabPath.classList.remove('active');
-            contentPage.classList.remove('hidden');
-            contentPath.classList.add('hidden');
-        });
-
-        tabPath.addEventListener('click', () => {
-            tabPath.classList.add('active');
-            tabPage.classList.remove('active');
-            contentPath.classList.remove('hidden');
-            contentPage.classList.add('hidden');
-        });
-
-        (isPathTranslate ? tabPath : tabPage).click();
+        renderStatus();
+        applyButtonState();
+        renderTabLists();
     }
 
     document.addEventListener('DOMContentLoaded', async () => {
-        changeEventListener();
-        await initialize();
-        applyButtonState();
-        registerButtonEvents();
-        registerTabEvents();
+        bindEvents();
+        await init();
+        chrome.storage.local.get(['lastTab', 'forceTabByUrl'], result => {
+            const force = result.forceTabByUrl;
+            const last = result.lastTab || 'page';
+            chrome.storage.local.set({forceTabByUrl: false});
+
+            if (force) {
+                if (isPathTranslate && Object.keys(bookmark.path || {}).length > 0) {
+                    activateTab('path');
+                } else if (isPageTranslate && Object.keys(bookmark.page || {}).length > 0) {
+                    activateTab('page');
+                } else {
+                    activateTab(last);
+                }
+            } else {
+                activateTab(last);
+            }
+        });
     });
 })();
