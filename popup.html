@@ -1,4 +1,3 @@
-<!-- popup.html -->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -6,7 +5,6 @@
     <meta name="viewport" content="width=500, initial-scale=1.0"/>
     <title>스타빈 POE 번역기</title>
     <link rel="stylesheet" href="css/popup.css"/>
-    <script src="scripts/common.js"></script>
     <script src="scripts/popup.js" defer></script>
 </head>
 <body>
@@ -29,33 +27,30 @@
         <button name="delPath" class="delPath">❎ 이 경로 중지</button>
     </section>
 
-    <section class="tab-menu">
+    <nav class="tab-menu">
         <button id="tab-path" class="tab">🌐 번역 경로</button>
         <button id="tab-page" class="tab active">📄 번역 페이지</button>
         <button id="tab-dictionary" class="tab">🧠 내 단어장</button>
         <button id="tab-settings" class="tab">⚙ 설정</button>
-    </section>
+    </nav>
 
-    <section class="tab-content hidden" id="content-path">
+    <section id="content-path" class="tab-content hidden">
         <p>저장된 경로가 없습니다.</p>
     </section>
 
-    <section class="tab-content" id="content-page">
+    <section id="content-page" class="tab-content">
         <p>저장된 페이지가 없습니다.</p>
     </section>
 
-    <section class="tab-content hidden" id="content-dictionary">
-      <textarea
-              id="dictionary-editor"
-              placeholder="life|생명력\nfire resistance|화염 저항\n..."
-      ></textarea>
-        <p class="dictionary-help">
-            ※ 번역할 영어 단어와 뜻을 <code>영어|한글</code> 형식으로 한 줄씩 입력하세요.
-        </p>
+    <section id="content-dictionary" class="tab-content hidden">
+        <textarea id="dictionary-editor" placeholder="life|생명력
+fire resistance|화염 저항
+..."></textarea>
+        <p class="dictionary-help">※ 번역할 영어 단어와 뜻을 <code>영어|한글</code> 형식으로 한 줄씩 입력하세요.</p>
         <button id="save-dictionary">💾 저장하기</button>
     </section>
 
-    <section class="tab-content hidden" id="content-settings">
+    <section id="content-settings" class="tab-content hidden">
         <button id="reset-all" class="danger">🧹 모든 설정 초기화하기</button>
     </section>
 </div>
