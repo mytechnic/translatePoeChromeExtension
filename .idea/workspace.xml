@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="91d6ca4b-9f33-4d5a-920c-af450833c748" name="Changes" comment="UI 개선">
+    <list default="true" id="91d6ca4b-9f33-4d5a-920c-af450833c748" name="Changes" comment="완벽하게 동작하는 버전">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/popup.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/popup.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/popup.html" beforeDir="false" afterPath="$PROJECT_DIR$/popup.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/background.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/common.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/content.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/content.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/popup.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/popup.js" afterDir="false" />
     </list>
@@ -117,7 +113,7 @@
       <workItem from="1715697085816" duration="1202000" />
       <workItem from="1745284959575" duration="15705000" />
       <workItem from="1745382237990" duration="15758000" />
-      <workItem from="1745406842421" duration="11963000" />
+      <workItem from="1745406842421" duration="12974000" />
     </task>
     <task id="LOCAL-00001" summary="최초 동작 버전">
       <option name="closed" value="true" />
@@ -303,7 +299,15 @@
       <option name="project" value="LOCAL" />
       <updated>1745312246062</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="완벽하게 동작하는 버전">
+      <option name="closed" value="true" />
+      <created>1745422889921</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1745422889921</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -380,7 +384,8 @@
     <MESSAGE value="jquery 라이브러리 제거" />
     <MESSAGE value="버그 수정" />
     <MESSAGE value="UI 개선" />
-    <option name="LAST_COMMIT_MESSAGE" value="UI 개선" />
+    <MESSAGE value="완벽하게 동작하는 버전" />
+    <option name="LAST_COMMIT_MESSAGE" value="완벽하게 동작하는 버전" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">

@@ -6,70 +6,30 @@
     let isPageActive = false;
     let isPathActive = false;
     let bookmark = {};
-    let cacheVersion = -1;
     let lastTab = 'page';
 
     // ===== 유틸 =====
     const getPageUrl = url => url.split('?')[0].replace(/\/$/, '');
-    const getPathUrl = url => {
-        if (url.startsWith('https://poe.ninja/builds/necropolis/character/')) return 'https://poe.ninja/builds/necropolis/character/';
-        if (url.startsWith('https://poe.ninja/builds/streamers/character/')) return 'https://poe.ninja/builds/streamers/character/';
-        return url.endsWith('/') ? url : url.split('/').slice(0, -1).join('/') + '/';
-    };
-
+    const getPathUrl = url => url.endsWith('/') ? url : url.split('/').slice(0, -1).join('/') + '/';
     const setSyncStorage = data => chrome.storage.sync.set(data);
     const getSyncStorage = () => chrome.storage.sync.get();
     const getLocalStorage = () => chrome.storage.local.get();
     const setLocalStorage = data => chrome.storage.local.set(data);
-    const onStorageChange = callback => chrome.storage.onChanged.addListener((chg, ns) => callback(chg, ns));
-
-    const fetchRemoteVersion = () => fetch('https://mytechnic.github.io/translate/poe_kr_version.json')
-        .then(res => res.json())
-        .then(data => data.version);
-
-    const fetchDictionary = () => fetch('https://mytechnic.github.io/translate/poe_kr.json')
-        .then(res => res.json());
-
-    const ensureDictionary = async () => {
-        const local = await getLocalStorage();
-        const localVersion = local.version ?? -1;
-
-        try {
-            const remoteVersion = await fetchRemoteVersion();
-            if (remoteVersion > localVersion) {
-                const dictionary = await fetchDictionary();
-                await setLocalStorage({version: remoteVersion, dictionary});
-                return {version: remoteVersion, dictionary};
-            } else {
-                return {version: localVersion, dictionary: local.dictionary ?? {h: {}, p: {}}};
-            }
-        } catch (e) {
-            return {version: localVersion, dictionary: local.dictionary ?? {h: {}, p: {}}};
-        }
-    };
 
     const sendTranslateNow = () => {
         chrome.tabs.query({active: true, currentWindow: true}, tabs => {
             const tab = tabs[0];
-            chrome.scripting.executeScript({
-                target: {tabId: tab.id},
-                files: ['scripts/content.js']
-            }, () => {
-                chrome.tabs.sendMessage(tab.id, {type: 'TRANSLATE_NOW'});
-            });
+            chrome.tabs.sendMessage(tab.id, {type: 'TRANSLATE_NOW'});
         });
     };
 
     // ===== 상태 렌더링 =====
     const renderStatus = () => {
         const el = document.getElementById('auto-translate-status');
-        if (isPageActive || isPathActive) {
-            el.textContent = '🟢 이 페이지는 번역 중입니다';
-            el.className = 'status on';
-        } else {
-            el.textContent = '🔴 이 페이지는 아직 번역되지 않았어요';
-            el.className = 'status off';
-        }
+        el.textContent = (isPageActive || isPathActive)
+            ? '🟢 이 페이지는 번역 중입니다'
+            : '🔴 이 페이지는 아직 번역되지 않았어요';
+        el.className = (isPageActive || isPathActive) ? 'status on' : 'status off';
     };
 
     const renderList = (containerId, data, type) => {
@@ -108,19 +68,20 @@
     };
 
     const applyButtonState = () => {
-        const show = id => document.querySelector(id).style.display = '';
-        const hide = id => document.querySelector(id).style.display = 'none';
+        const buttons = {
+            addPage: '.addPage',
+            addPath: '.addPath',
+            delPage: '.delPage',
+            delPath: '.delPath'
+        };
 
-        hide('.addPage');
-        hide('.addPath');
-        hide('.delPage');
-        hide('.delPath');
+        Object.values(buttons).forEach(id => document.querySelector(id).style.display = 'none');
 
-        if (isPageActive) show('.delPage');
-        else if (isPathActive) show('.delPath');
+        if (isPageActive) document.querySelector(buttons.delPage).style.display = '';
+        else if (isPathActive) document.querySelector(buttons.delPath).style.display = '';
         else {
-            show('.addPage');
-            show('.addPath');
+            document.querySelector(buttons.addPage).style.display = '';
+            document.querySelector(buttons.addPath).style.display = '';
         }
     };
 
@@ -130,16 +91,15 @@
         document.querySelectorAll('.tab-content').forEach(sec => sec.classList.add('hidden'));
         document.getElementById(`tab-${id}`).classList.add('active');
         document.getElementById(`content-${id}`).classList.remove('hidden');
-        chrome.storage.local.set({lastTab: id});
+        setLocalStorage({lastTab: id});
     };
 
     // ===== 번역 설정 =====
     const setPageTranslate = flag => {
         bookmark.page = bookmark.page || {};
-        if (flag) bookmark.page[currentPage] = true;
-        else delete bookmark.page[currentPage];
+        flag ? bookmark.page[currentPage] = true : delete bookmark.page[currentPage];
         setSyncStorage(bookmark);
-        chrome.storage.local.set({forceTabByUrl: true});
+        setLocalStorage({forceTabByUrl: true});
         sendTranslateNow();
         updateState();
         if (flag) activateTab('page');
@@ -147,10 +107,9 @@
 
     const setPathTranslate = flag => {
         bookmark.path = bookmark.path || {};
-        if (flag) bookmark.path[currentPath] = true;
-        else delete bookmark.path[currentPath];
+        flag ? bookmark.path[currentPath] = true : delete bookmark.path[currentPath];
         setSyncStorage(bookmark);
-        chrome.storage.local.set({forceTabByUrl: true});
+        setLocalStorage({forceTabByUrl: true});
         sendTranslateNow();
         updateState();
         if (flag) activateTab('path');
@@ -159,14 +118,11 @@
     const updateState = () => {
         chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
             const url = tabs?.[0]?.url || '';
-            const pageUrl = getPageUrl(url);
-            const pathUrl = getPathUrl(url);
+            currentPage = getPageUrl(url);
+            currentPath = getPathUrl(url);
 
-            currentPage = pageUrl;
-            currentPath = pathUrl;
-
-            isPageActive = !!bookmark.page?.[pageUrl];
-            isPathActive = !!Object.keys(bookmark.path || {}).find(p => url.startsWith(p));
+            isPageActive = !!bookmark.page?.[currentPage];
+            isPathActive = Object.keys(bookmark.path || {}).some(p => url.startsWith(p));
 
             renderStatus();
             renderTabLists();
@@ -200,30 +156,26 @@
         };
 
         ['page', 'path', 'dictionary', 'settings'].forEach(name => {
-            const tab = document.getElementById(`tab-${name}`);
-            const content = document.getElementById(`content-${name}`);
-            tab.onclick = () => activateTab(name);
+            document.getElementById(`tab-${name}`).onclick = () => activateTab(name);
         });
     };
 
     // ===== 초기화 =====
     document.addEventListener('DOMContentLoaded', async () => {
         bindEvents();
-        const [tabs, local, sync, dictionaryResult] = await Promise.all([
+        const [tabs, local, sync] = await Promise.all([
             chrome.tabs.query({active: true, currentWindow: true}),
             getLocalStorage(),
-            getSyncStorage(),
-            ensureDictionary()
+            getSyncStorage()
         ]);
 
         const url = tabs?.[0]?.url || '';
         currentPage = getPageUrl(url);
         currentPath = getPathUrl(url);
         bookmark = sync || {page: {}, path: {}};
-        cacheVersion = dictionaryResult.version;
         lastTab = local.lastTab || 'page';
 
-        document.getElementById('version').textContent = cacheVersion;
+        document.getElementById('version').textContent = local.version ?? '-';
         document.getElementById('dictionary-editor').value = local.userDictionary || '';
 
         updateState();

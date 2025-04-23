@@ -1,15 +1,19 @@
 // content.js
 (() => {
+    const emptyDictionary = {h: {}, p: {}};
+    const FUZZY_MATCH_THRESHOLD = 0.8;
+    const MAX_DOCUMENT_CACHE = 150000;
+    const PURGE_COUNT = 5000;
+
     let path = '', page = '', cacheVersion = -1;
     let dictionary = {}, documentCache = {}, sortedPatternKeys = [];
     let dictionaryInitialized = false, pendingTranslateRequest = false;
-    let isChangedDocument = false, autoTranslate = false;
+    let autoTranslate = false;
     let documentCacheSize = 0;
 
     const regexCache = new Map();
-    const translatedNodes = new WeakSet();
 
-    const localStorageInit = {version: -1, dictionary: {h: {}, p: {}}, documentCache: {}};
+    const localStorageInit = {version: -1, dictionary: emptyDictionary, documentCache: {}};
     const syncStorageInit = {page: {}, path: {}};
 
     const toLowerCase = text => text?.toLowerCase() ?? text;
@@ -32,15 +36,16 @@
         return regexCache.get(pattern);
     };
 
-    const regexTranslate = (text, source, target) => {
+    const regexTranslate = (text, source, targetTemplate) => {
         const regex = getCachedRegex(source);
         const matched = text.trim().match(regex);
-        if (matched) {
-            for (let i = 1; i < matched.length; i++) {
-                target = target.replace(/#/, matched[i]);
-            }
-            return target.replace(regex, target);
+        if (!matched) return;
+
+        let result = targetTemplate;
+        for (let i = 1; i < matched.length; i++) {
+            result = result.replace('#', matched[i]);
         }
+        return result;
     };
 
     const fuzzyScore = (a, b) => {
@@ -53,10 +58,9 @@
     const getDocumentCache = key => documentCache[key] ?? null;
 
     const storeDocumentLocalCache = (key, value) => {
-        isChangedDocument = true;
-        if (documentCacheSize > 150000) {
-            Object.keys(documentCache).slice(0, 5000).forEach(k => delete documentCache[k]);
-            documentCacheSize -= 5000;
+        if (documentCacheSize > MAX_DOCUMENT_CACHE) {
+            Object.keys(documentCache).slice(0, PURGE_COUNT).forEach(k => delete documentCache[k]);
+            documentCacheSize -= PURGE_COUNT;
         } else {
             documentCacheSize++;
         }
@@ -85,7 +89,7 @@
         for (const key of Object.keys(dictionary.p)) {
             if (Math.abs(hashKey.length - key.length) > 5) continue;
             const score = fuzzyScore(hashKey, key);
-            if (score > bestScore && score >= 0.8) {
+            if (score > bestScore && score >= FUZZY_MATCH_THRESHOLD) {
                 bestMatch = key;
                 bestScore = score;
             }
@@ -95,9 +99,11 @@
     };
 
     const translateNode = node => {
-        if (node.nodeType !== 3) return node.childNodes.forEach(translateNode);
-        if (translatedNodes.has(node)) return;
-        translatedNodes.add(node);
+        if (node.nodeType === 1 && node.childNodes.length) {
+            node.childNodes.forEach(translateNode);
+            return;
+        }
+        if (node.nodeType !== 3) return;
 
         const raw = node.nodeValue;
         if (!raw || raw.length > 400 || raw.includes('<') || isNumericAndSpecialCharactersOnly(raw)) return;
@@ -105,7 +111,10 @@
         const key = getCacheKey(raw);
         const cached = getDocumentCache(key);
         if (cached === -1) return;
-        if (cached) return node.nodeValue = cached;
+        if (cached) {
+            node.nodeValue = cached;
+            return;
+        }
 
         const translated = translateText(raw);
         if (translated) {
@@ -126,8 +135,8 @@
         observer.observe(document.body, {childList: true, subtree: true});
     };
 
-    const applyUserDictionary = (callback) => {
-        chrome.storage.local.get('userDictionary', (result) => {
+    const applyUserDictionary = callback => {
+        chrome.storage.local.get('userDictionary', result => {
             const raw = result.userDictionary;
             if (!raw) return callback?.();
 
@@ -165,10 +174,10 @@
                 dictionary = await fetchDictionary();
                 await setLocalStorage({version: remoteVersion, dictionary, documentCache: {}});
             } else {
-                dictionary = localData.dictionary ?? {h: {}, p: {}};
+                dictionary = localData.dictionary ?? emptyDictionary;
             }
         } catch (e) {
-            dictionary = localData.dictionary ?? {h: {}, p: {}};
+            dictionary = localData.dictionary ?? emptyDictionary;
         }
 
         documentCache = localData.documentCache ?? {};
@@ -208,10 +217,10 @@
                         dictionary = await fetchDictionary();
                         await setLocalStorage({version: remoteVersion, dictionary, documentCache: {}});
                     } else {
-                        dictionary = localStore.dictionary ?? {h: {}, p: {}};
+                        dictionary = localStore.dictionary ?? emptyDictionary;
                     }
                 } catch (e) {
-                    dictionary = localStore.dictionary ?? {h: {}, p: {}};
+                    dictionary = localStore.dictionary ?? emptyDictionary;
                 }
 
                 applyUserDictionary(() => {
