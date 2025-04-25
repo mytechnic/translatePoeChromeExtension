@@ -139,7 +139,7 @@
 
         document.getElementById('save-dictionary').onclick = () => {
             const raw = document.getElementById('dictionary-editor').value;
-            chrome.storage.local.set({userDictionary: raw});
+            chrome.storage.local.set({userDictionary: raw, tempUserDictionary: raw});
             alert('사용자 사전이 저장되었습니다.');
         };
 
@@ -157,6 +157,10 @@
 
         ['page', 'path', 'dictionary', 'settings'].forEach(name => {
             document.getElementById(`tab-${name}`).onclick = () => activateTab(name);
+        });
+
+        document.getElementById('dictionary-editor').addEventListener('input', (e) => {
+            chrome.storage.local.set({tempUserDictionary: e.target.value});
         });
     };
 
@@ -176,7 +180,7 @@
         lastTab = local.lastTab || 'page';
 
         document.getElementById('version').textContent = local.version ?? '-';
-        document.getElementById('dictionary-editor').value = local.userDictionary || '';
+        document.getElementById('dictionary-editor').value = local.tempUserDictionary || local.userDictionary || '';
 
         updateState();
         activateTab(lastTab);
